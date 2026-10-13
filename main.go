@@ -1,13 +1,12 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"os"
-	"strconv"
 	"task-manager/config"
 	"task-manager/helper"
+	auth_cmd "task-manager/module/auth"
 	category_cmd "task-manager/module/category"
 	hudud_cmd "task-manager/module/hudud"
 
@@ -23,41 +22,42 @@ func main() {
 
 	defer db.Close()
 
-	if len(os.Args) > 1 && os.Args[1] == "db:seed" {
+	// if len(os.Args) > 1 && os.Args[1] == "db:seed" {
 
-		if len(os.Args) < 3 || os.Args[2] != "categories" {
-			fmt.Println("Usage: go run . db:seed categories <count>")
-			return
-		}
+	// 	if len(os.Args) < 3 || os.Args[2] != "categories" {
+	// 		fmt.Println("Usage: go run . db:seed categories <count>")
+	// 		return
+	// 	}
 
-		count := 100
+	// 	count := 100
 
-		if len(os.Args) > 3 {
-			value, err := strconv.Atoi(os.Args[3])
-			{
-				if err != nil || value < 1 {
-					fmt.Println("Count must be a positive number")
-					return
-				}
-			}
+	// 	if len(os.Args) > 3 {
+	// 		value, err := strconv.Atoi(os.Args[3])
+	// 		{
+	// 			if err != nil || value < 1 {
+	// 				fmt.Println("Count must be a positive number")
+	// 				return
+	// 			}
+	// 		}
 
-			count = value
-		}
+	// 		count = value
+	// 	}
 
-		inserted, err := config.SeedCategories(context.Background(), db, count)
-		{
-			if err != nil {
-				panic(err)
-			}
-		}
+	// 	inserted, err := config.SeedCategories(context.Background(), db, count)
+	// 	{
+	// 		if err != nil {
+	// 			panic(err)
+	// 		}
+	// 	}
 
-		fmt.Printf("Categories seeded: %d inserted\n", inserted)
+	// 	fmt.Printf("Categories seeded: %d inserted\n", inserted)
 
-		return
-	}
+	// 	return
+	// }
 
 	router := httprouter.New()
 	{
+		auth_cmd.Register(router, "/api", db)
 		category_cmd.Register(router, "/api", db)
 		hudud_cmd.Register(router, "/api", db)
 	}

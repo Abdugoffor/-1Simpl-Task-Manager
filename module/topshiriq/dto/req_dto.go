@@ -5,7 +5,7 @@ type Create struct {
 	Description string `json:"description" validate:"required"`
 	CategoryID  int64  `json:"category_id" validate:"required"`
 	HududID     int64  `json:"hudud_id" validate:"required"`
-	File        string `json:"file" validate:"required"`
+	File        string `json:"file"`
 	Didline     string `json:"didline" validate:"required"`
 }
 
@@ -14,7 +14,7 @@ type Update struct {
 	Description string `json:"description" validate:"required"`
 	CategoryID  int64  `json:"category_id" validate:"required"`
 	HududID     int64  `json:"hudud_id" validate:"required"`
-	File        string `json:"file" validate:"required"`
+	File        string `json:"file"`
 	Didline     string `json:"didline" validate:"required"`
 }
 type Filter struct {

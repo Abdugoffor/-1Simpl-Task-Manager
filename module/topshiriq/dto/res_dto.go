@@ -7,6 +7,7 @@ type Response struct {
 	CategoryID  int64  `json:"category_id"`
 	HududID     int64  `json:"hudud_id"`
 	File        string `json:"file"`
+	Status      string `json:"status"`
 	Didline     string `json:"didline"`	
 	CreatedAt   string `json:"created_at"`
 	UpdatedAt   string `json:"updated_at"`
